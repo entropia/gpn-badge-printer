@@ -1,0 +1,9 @@
+Package: gpn-badge-printer
+Version: 0.0.0
+Architecture: all
+Essential: no
+Section: utils
+Priority: optional
+Depends: python3 (>=3.9), python3-pil (>=4.0), python3-pip (>=9.0)
+Maintainer: Jadyn.dev
+Description: GPN Badge Printer

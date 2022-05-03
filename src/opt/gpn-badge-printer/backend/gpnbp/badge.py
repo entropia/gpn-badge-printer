@@ -36,7 +36,15 @@ class BadgeGenerator:
         self.font_size = config['font']['size']
         self.margins = ImageMargins([config['margins']['left'], config['margins']['right'], config['margins']['top'],
                                      config['margins']['bottom']])
-        self.text_position = (config['text']['position']['x'], config['text']['position']['y'])
+
+        if config['text']['position'] is not None:
+            self.text_position = (config['text']['position']['x'], config['text']['position']['y'])
+        else:
+            x = int((self.size.width - self.margins.left - self.margins.right) / 2 + self.margins.left)
+            y = int((self.size.height - self.margins.top - self.margins.bottom) / 2 + self.margins.top)
+            self.text_position = (x, y)
+        print(self.text_position)
+        self.text_anchor = config['text']['anchor']
         self.show_margins = show_margins
 
     def getBadge(self, string: str) -> Image:
@@ -65,6 +73,7 @@ class BadgeGenerator:
             font_size = font_size - 1
             font = ImageFont.truetype(self.font_path, font_size)
             text_width, text_height = draw.textsize(string, font=font)
+        print(f'Reduced font size to {font_size}')
 
         # Reduce text length
         text_width, text_height = draw.textsize(string, font=font)
@@ -73,5 +82,5 @@ class BadgeGenerator:
             text_width, text_height = draw.textsize(string, font=font)
 
         # Draw Text
-        draw.text(self.text_position, string, fill=(0, 0, 0, 255), anchor="mm", font=font)
+        draw.text(self.text_position, string, fill=(0, 0, 0, 255), anchor=self.text_anchor, font=font)
         return image

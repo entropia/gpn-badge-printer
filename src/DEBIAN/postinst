@@ -1,0 +1,13 @@
+#!/bin/sh
+echo Adding gpnbp User
+adduser gpnbp --disabled-password --gecos "" --no-create-home
+
+echo Adding files and permissons
+touch /var/log/gpn-badge-printer.log
+chown root:adm /var/log/gpn-badge-printer.log
+chown root:gpnbp /opt/gpn-badge-printer/core
+
+echo Starting service...
+systemctl daemon-reload
+systemctl restart rsyslog
+systemctl enable --now gpn-badge-printer.service

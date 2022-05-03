@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ "$1" == "purge" ]; then
+  echo "Purging Database"
+  echo "drop user esign@localhost;" | mysql
+  echo "drop database esign;" | mysql
+  echo "Deleting User"
+  delgroup esign
+  deluser esign
+fi

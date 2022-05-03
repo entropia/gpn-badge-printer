@@ -1,0 +1,5 @@
+#!/bin/sh
+echo "Removing GPN Badge Printer"
+systemctl stop gpn-badge-printer.service
+systemctl daemon-reload
+find /opt/gpn-badge-printer/ -name __pycache__ | xargs rm -rf
