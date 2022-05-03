@@ -13,7 +13,9 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build package
-        run: dpkg -b src/ gpnbp.deb
+        run: |
+            cp conf.json src/opt/gpn-badge-printer/files/conf.json
+            dpkg -b src/ gpnbp.deb
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.3.1

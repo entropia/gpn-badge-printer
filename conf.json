@@ -1,0 +1,36 @@
+{
+  "app": {
+    "address": "127.0.0.1",
+    "port": "80",
+    "debug": false
+  },
+  "cups": {
+    "printer": "Nadeldrucker",
+    "enable": false
+  },
+  "badge":{
+    "size": {
+      "width": 1240,
+      "height": 874
+    },
+    "text": {
+      "anchor": "mm",
+      "position": null
+    },
+    "font": {
+      "path": "files/font.ttf",
+      "size": 70
+    },
+    "margins":{
+      "top": 400,
+      "bottom": 400,
+      "left": 30,
+      "right": 30
+    }
+  },
+  "pretix": {
+    "url": "https://example-event.com",
+    "event": "changeme",
+    "token": "changeme"
+  }
+}
