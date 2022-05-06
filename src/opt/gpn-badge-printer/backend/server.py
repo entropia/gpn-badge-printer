@@ -19,8 +19,8 @@ try:
 except (OSError, KeyError, json.JSONDecodeError):
     raise gpnbp.exceptions.ConfigurationError("Couldn't load configuration")
 
-name_string = "1234567890123456789012345678901234567890123456789012345678901234567890"
-badge_file = badge.getBadge(name_string)
+name_string = "Jadyn.dev"
+badge_file = badge.getBadge({'name': name_string, 'pronouns': 'she/her'}, False)
 badge_file.show()
 file = (Path('/tmp/') / hashlib.md5(name_string.encode()).hexdigest())
 badge_file.save(file.as_posix(), format='png')
