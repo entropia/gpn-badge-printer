@@ -1,30 +1,39 @@
+from gpnbp.configuration import GPNBPConfig, ConfigurationError
+from gpnbp.badge.badge import BadgeGenerator
+from gpnbp.printer import Printer, PrinterMockup
+
+from typing import Union
+import sys
+import logging
 import json
-import tempfile
-from gpnbp.printer import Printer
-from gpnbp.pretix import PretixAPI
-from gpnbp.badge import BadgeGenerator
-import gpnbp.exceptions
-from pathlib import Path
-import hashlib
 
-# Load config
-try:
-    with open('files/conf.json') as f:
-        config = json.loads(f.read())
-        printer = Printer(config['cups']['printer'])
-        badge = BadgeGenerator(config=config['badge'], show_margins=config['app']['debug'])
-        pretix = PretixAPI(url=config['pretix']['url'],
-                           event=config['pretix']['event'],
-                           token=config['pretix']['token'])
-except (OSError, KeyError, json.JSONDecodeError):
-    raise gpnbp.exceptions.ConfigurationError("Couldn't load configuration")
+logging.basicConfig(level=logging.DEBUG)
 
-name_string = "Jadyn.dev"
-badge_file = badge.getBadge({'name': name_string, 'pronouns': 'she/her'}, False)
-badge_file.show()
-file = (Path('/tmp/') / hashlib.md5(name_string.encode()).hexdigest())
-badge_file.save(file.as_posix(), format='png')
 
-if config['cups']['enable']:
-    printer.printFile(file)
+class GPNBPServer:
+    config: GPNBPConfig
+    badge_generator: BadgeGenerator
+    printer: Union[Printer, PrinterMockup]
 
+    def __init__(self):
+        # Load config file
+        if len(sys.argv) >= 2:
+            config_file = sys.argv[1]
+        else:
+            config_file = 'files/conf.json'
+        logging.info(f'Loading configfile {config_file}')
+        try:
+            self.config = GPNBPConfig(config_file)
+        except (OSError, KeyError, json.JSONDecodeError):
+            raise ConfigurationError("Couldn't load configuration file")
+
+        self.badge_generator = BadgeGenerator(self.config.badge)
+
+        if self.config.cups.enabled:
+            self.printer = Printer(self.config.cups.printer_name)
+        else:
+            self.printer = PrinterMockup(self.config.cups.printer_name)
+
+
+if __name__ == "__main__":
+    server = GPNBPServer()

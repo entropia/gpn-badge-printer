@@ -4,26 +4,28 @@
     <meta charset="UTF-8">
     <title>GPNBD: GPN-Badge-Drucker</title>
     <script src="assets/gpnbd/gpnbd.js"></script>
-    <script src="assets/keyboard/keyboard.js"></script>
     <link rel="stylesheet" href="assets/gpnbd/style.css">
-    <link rel="stylesheet" href="assets/keyboard/keyboard.css">
     <link rel="stylesheet" href="assets/material-icons/icons.css">
 </head>
 <body>
     <h1>GPN20 - Get your Badge</h1>
     <div id="system-messages"></div>
     <div class="slide" id="slide0">
-        <h2>Scan your ticket or enter your (Nick-)Name!</h2>
-        <input id="barcode" type="text" autofocus>
+        <h2>Scan your ticket or press ENTER if don't have one</h2>
+        <input id="ticket" type="text" autofocus>
+        <button onclick="showSlide('slide1')">REDEEM</button>
+    </div>
+    <div class="slide" id="slide1">
+        <h2>Scan your ticket or press ENTER if don't have one</h2>
         <input id="name" type="text" class="use-keyboard-input">
         <img id="preview">
         <button onclick="showSlide('slide1')">PRINT</button>
     </div>
-    <div class="slide" id="slide1">
+    <div class="slide" id="slide2">
         <h2>Place a blank badge into the printer as shown!</h2>
         <button onclick="showSlide('slide2')">DONE</button>
     </div>
-    <div class="slide" id="slide2">
+    <div class="slide" id="slide3">
         <h2>Turn your badge over and place it into the printer!</h2>
         <button onclick="showSlide('slide0')">DONE</button>
     </div>

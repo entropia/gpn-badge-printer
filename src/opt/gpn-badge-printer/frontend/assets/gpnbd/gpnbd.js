@@ -16,6 +16,6 @@ window.onload = function (){
     showSlide('slide0')
 }
 
-function ticketSearch(){
-    console.log(document.getElementById('barcode').value)
+function getPreview(){
+
 }
