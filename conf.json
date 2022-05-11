@@ -1,31 +1,68 @@
 {
   "app": {
-    "address": "127.0.0.1",
-    "port": "80",
-    "debug": false
+    "host": "127.0.0.1",
+    "port": "8000",
+    "debug": false,
+    "log_level": 10
   },
   "cups": {
-    "printer": "Nadeldrucker",
-    "enable": false
+    "printer_name": "Nadeldrucker",
+    "enabled": true
   },
   "badge":{
     "size": {
       "width": 1240,
       "height": 874
     },
-    "text": {
-      "anchor": "mm",
-      "position": null
+    "preview": {
+      "background": "files/GPN20-Badge.png",
+      "showMargins": false
     },
-    "font": {
-      "path": "files/font.ttf",
-      "size": 70
-    },
-    "margins":{
-      "top": 400,
-      "bottom": 400,
-      "left": 30,
-      "right": 30
+    "fields":{
+      "name": {
+        "description": "Enter your (Nick-)Name",
+        "text": {
+          "anchor": "mm",
+          "position": null
+        },
+        "font": {
+          "path": "files/font.ttf",
+          "max_size": 140,
+          "min_size": 80
+        },
+        "margins":{
+          "top": 365,
+          "bottom": 365,
+          "left": 30,
+          "right": 30
+        },
+        "debug":{
+          "color": "red",
+          "width": 2
+        }
+      },
+      "pronouns": {
+        "description": "Enter a second line (you Pronouns for example)",
+        "text": {
+          "anchor": "mm",
+          "position": null
+        },
+        "font": {
+          "path": "files/font.ttf",
+          "max_size": 70,
+          "min_size": 50
+        },
+        "margins":{
+          "top": 540,
+          "bottom": 260,
+          "left": 430,
+          "right": 430
+        },
+        "debug":{
+          "color": "green",
+          "width": 2
+        }
+      }
     }
   },
   "pretix": {
