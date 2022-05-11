@@ -48,12 +48,14 @@ class GPNBPConfig(ConfigOption):
             font: Font
             margins: Margins
             debug: Debug
+            description: str = ''
 
             def __init__(self, **kwargs):
                 self.text = self.Text(**kwargs['text'])
                 self.font = self.Font(**kwargs['font'])
                 self.margins = self.Margins(**kwargs['margins'])
                 self.debug = self.Debug(**kwargs['debug'])
+                self.description = kwargs['description']
 
         size: Size
         preview: Preview

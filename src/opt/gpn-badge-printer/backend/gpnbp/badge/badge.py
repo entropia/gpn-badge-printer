@@ -22,7 +22,7 @@ class BadgeGenerator:
             logging.debug(f'Initializing Textfield: {field}')
             self.fields[field] = TextField(self, config.fields[field])
 
-    def getBadge(self, strings: dict[str, str], show_background: bool, show_margins: bool) -> Image:
+    def getBadge(self, strings: dict[str, str], show_background: bool = False, show_margins: bool = False) -> Image:
         logging.info(f'Generating Badge: {strings}, {show_background}')
         image = Image.new("RGBA", (self.size.width, self.size.height))
         draw = ImageDraw.Draw(image)
