@@ -1,0 +1,220 @@
+swagger: "2.0"
+info:
+  description: "This tool allows you to print conference badges!"
+  version: "0.1"
+  title: "GPNBP: GPN-Badge-Printer"
+  contact:
+    email: "jadyn@jadyn.dev"
+  license:
+    name: "GPL-3.0 license"
+    url: "https://www.gnu.org/licenses/gpl-3.0.en.html"
+basePath: "/api/"
+externalDocs:
+  url: "https://github.com/entropia/gpn-badge-printer/"
+
+tags:
+- name: "badge"
+  description: "Generate and print badges"
+- name: "printer"
+  description: "Get status information about the connected printer"
+- name: "pretix"
+  description: "Get ticket data from Pretix"
+
+schemes:
+- "http"
+- "https"
+
+paths:
+  /badge/info:
+    get:
+      tags:
+      - "badge"
+      summary: "Returns Information about the expected data"
+      operationId: "badgeInfo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful"
+          schema:
+            $ref: "#/definitions/badgeDefinitionResponse"
+
+  /badge/preview:
+    post:
+      tags:
+      - "badge"
+      summary: "Generates a Preview Image"
+      operationId: "badgePreview"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/badgeRequest"
+      responses:
+        "200":
+          description: "successful"
+          schema:
+            $ref: "#/definitions/badgePreviewResponse"
+
+  /badge/print:
+    post:
+      tags:
+      - "badge"
+      summary: "Generates a bagde and sends it to the printer"
+      operationId: "badgePrint"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/badgeRequest"
+      responses:
+        "200":
+          description: "successful"
+          schema:
+            $ref: "#/definitions/printJob"
+
+  /printer/status:
+    get:
+      tags:
+      - "printer"
+      summary: "Returns Information about the printer"
+      operationId: "printerStatus"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful"
+          schema:
+            $ref: "#/definitions/printerStatus"
+
+  /printer/job/{jobid}:
+    get:
+      tags:
+      - "printer"
+      summary: "Returns Information about the printjob"
+      operationId: "printerJobStatus"
+      parameters:
+        - name: jobid
+          in: path
+          description: 'CUPS Jobid'
+          type: 'integer'
+          required: true
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful"
+          schema:
+            $ref: "#/definitions/printerJobStatus"
+
+definitions:
+  badgeRequest:
+    type: "object"
+    properties:
+      show_background:
+        type: 'boolean'
+        default: false
+      show_margins:
+        type: 'boolean'
+        default: false
+      fields:
+        type: 'array'
+        items:
+          type: 'object'
+          properties:
+            name:
+              type: 'string'
+            value:
+              type: 'string'
+
+  badgePreviewResponse:
+    type: "object"
+    properties:
+      image:
+        type: 'string'
+      fields:
+        type: 'array'
+        items:
+          type: 'object'
+          properties:
+            name:
+              type: 'string'
+            value:
+              type: 'string'
+
+  badgeDefinitionResponse:
+    type: "object"
+    properties:
+      width:
+        type: 'integer'
+      height:
+        type: 'integer'
+      fields:
+        type: 'array'
+        items:
+          type: 'object'
+          properties:
+            name:
+              type: 'string'
+
+  printJob:
+    type: "object"
+    properties:
+      jobid:
+        type: 'integer'
+
+  printerStatus:
+    type: "object"
+    properties:
+      printer-name:
+        type: 'string'
+      printer-state:
+        type: 'integer'
+      printer-state-message:
+        type: 'string'
+      printer-state-reasons:
+        type: 'array'
+        items:
+          type: 'string'
+      printer-info:
+        type: 'string'
+        
+  printerJobStatus:
+    type: "object"
+    properties:
+      jobid:
+        type: 'integer'
+      number_of_documents:
+        type: 'integer'
+      time_at_completed:
+        type: 'integer'
+      time_at_creation:
+        type: 'integer'
+      time_at_processing:
+        type: 'integer'
+      job_state:
+        type: 'integer'
+      job_state_reason: 
+        type: 'string'
+      job_printer_state_message:
+        type: 'string'
+      job_printer_state_reasons:
+        type: 'array'
+        items:
+          type: 'string'
