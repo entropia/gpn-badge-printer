@@ -65,9 +65,13 @@
       }
     }
   },
-  "pretix": {
-    "url": "https://example-event.com",
-    "event": "changeme",
-    "token": "changeme"
+  "ticket": {
+    "enabled": true,
+    "data_source": {
+      "name": "csv",
+      "config": {
+        "path": "files/tickets.csv"
+      }
+    }
   }
 }

@@ -17,8 +17,8 @@ tags:
   description: "Generate and print badges"
 - name: "printer"
   description: "Get status information about the connected printer"
-- name: "pretix"
-  description: "Get ticket data from Pretix"
+- name: "ticket"
+  description: "Get ticket data from Pretix or other data sources"
 
 schemes:
 - "http"
@@ -40,6 +40,10 @@ paths:
           description: "successful"
           schema:
             $ref: "#/definitions/badgeDefinitionResponse"
+        "500":
+          description: "Server Error"
+          schema:
+            $ref: "#/definitions/errorResponse"
 
   /badge/preview:
     post:
@@ -63,6 +67,14 @@ paths:
           description: "successful"
           schema:
             $ref: "#/definitions/badgePreviewResponse"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/errorResponse"
+        "500":
+          description: "Server Error"
+          schema:
+            $ref: "#/definitions/errorResponse"
 
   /badge/print:
     post:
@@ -86,6 +98,19 @@ paths:
           description: "successful"
           schema:
             $ref: "#/definitions/printJob"
+        "400":
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/errorResponse"
+        "500":
+          description: "Server Error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+        "530":
+          description: "Cups Error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
 
   /printer/status:
     get:
@@ -102,6 +127,14 @@ paths:
           description: "successful"
           schema:
             $ref: "#/definitions/printerStatus"
+        "500":
+          description: "Server Error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+        "530":
+          description: "Cups Error"
+          schema:
+            $ref: "#/definitions/errorResponse"
 
   /printer/job/{jobid}:
     get:
@@ -122,6 +155,38 @@ paths:
           description: "successful"
           schema:
             $ref: "#/definitions/printerJobStatus"
+        "530":
+          description: "Cups Error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+        "500":
+          description: "Server Error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+  /ticket/{ticket_code}:
+    get:
+      tags:
+      - "ticket"
+      summary: "Returns Information about the scanned ticket"
+      operationId: "ticketGetData"
+      parameters:
+        - name: ticket_code
+          in: path
+          description: 'Ticket code'
+          type: 'string'
+          required: true
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful"
+          schema:
+            $ref: "#/definitions/ticketResponse"
+        "404":
+          description: "not found"
+          schema:
+            $ref: "#/definitions/errorResponse"
 
 definitions:
   badgeRequest:
@@ -218,3 +283,21 @@ definitions:
         type: 'array'
         items:
           type: 'string'
+
+  ticketResponse:
+    type: "object"
+    properties:
+      ticket_code:
+        type: 'string'
+      fields:
+        type: 'array'
+        items:
+          type: 'string'
+
+  errorResponse:
+    type: "object"
+    properties:
+      code:
+        type: 'integer'
+      message:
+        type: 'string'

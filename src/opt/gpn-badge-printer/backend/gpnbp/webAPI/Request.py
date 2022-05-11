@@ -8,3 +8,7 @@ class Request:
             show_background: bool = False
             show_margins: bool = False
             fields: list[Field]
+
+    class Ticket:
+        class Request:
+            ticket_code: str

@@ -1,7 +1,7 @@
 from gpnbp.configuration import GPNBPConfig, ConfigurationError
 from gpnbp.badge.badge import BadgeGenerator
 from gpnbp.printer import Printer, PrinterMockup
-
+from gpnbp.ticket.ticket import TicketManager
 
 from typing import Union
 import sys
@@ -19,10 +19,7 @@ class GPNBPServer:
         else:
             config_file = 'files/conf.json'
         logging.info(f'Loading configfile {config_file}')
-        try:
-            self.config = GPNBPConfig(config_file)
-        except (OSError, KeyError, json.JSONDecodeError):
-            raise ConfigurationError("Couldn't load configuration file")
+        self.config = GPNBPConfig(config_file)
 
         self.badge_generator = BadgeGenerator(self.config.badge)
 
@@ -30,3 +27,5 @@ class GPNBPServer:
             self.printer = Printer(self.config.cups.printer_name)
         else:
             self.printer = PrinterMockup(self.config.cups.printer_name)
+
+        self.ticket = TicketManager(self.config.ticket)

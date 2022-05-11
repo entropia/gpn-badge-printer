@@ -1,7 +1,8 @@
 import requests
+from gpnbp.ticket.TicketDataSource import TicketDataSource
 
 
-class PretixAPI:
+class Pretix(TicketDataSource):
     def __init__(self,
                  url: str,
                  event: str,
@@ -9,3 +10,6 @@ class PretixAPI:
         self.baseURL = url
         self.event = event
         self.authToken = token
+
+    def getTicket(self, ticket_code: str) -> dict[str, str]:
+        pass

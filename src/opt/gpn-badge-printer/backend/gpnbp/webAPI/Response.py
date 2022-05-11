@@ -38,4 +38,16 @@ class Response:
             job_state_reason: str
             job_printer_state_message: str
             job_printer_state_reasons: list[str]
-            
+
+    class Ticket:
+        class Response:
+            class Field:
+                name: str
+                value: str
+
+            ticket_code: str
+            fields: list[Field]
+
+    class Error:
+        code: int
+        message: str

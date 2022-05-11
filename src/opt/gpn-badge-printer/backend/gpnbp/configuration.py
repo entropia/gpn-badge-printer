@@ -1,4 +1,4 @@
-from typing import Union, Sequence
+from typing import Union, Sequence, Any
 from pathlib import Path
 import json
 
@@ -78,19 +78,31 @@ class GPNBPConfig(ConfigOption):
         printer_name: str
         enabled: bool
 
-    class Pretix(ConfigOption):
-        url: str
-        event: str
-        token: str
+    class Ticket(ConfigOption):
+        class Datasource(ConfigOption):
+            name: str
+            config: dict[str, Any]
+
+        datasource: Datasource
+        enabled: bool
+
+        def __init__(self, **kwargs):
+            self.enabled = kwargs['enabled']
+            if self.enabled:
+                self.datasource = self.Datasource(**kwargs['data_source'])
 
     app: App
     cups: Cups
     badge: Badge
-    pretix: Pretix
+    ticket: Ticket
 
     def __init__(self, file: Union[str, Path]):
-        with open(file) as f:
-            config = json.loads(f.read())
-        self.app = GPNBPConfig.App(**config['app'])
-        self.cups = GPNBPConfig.Cups(**config['cups'])
-        self.badge = GPNBPConfig.Badge(**config['badge'])
+        try:
+            with open(file) as f:
+                config = json.loads(f.read())
+            self.app = GPNBPConfig.App(**config['app'])
+            self.cups = GPNBPConfig.Cups(**config['cups'])
+            self.badge = GPNBPConfig.Badge(**config['badge'])
+            self.ticket = GPNBPConfig.Ticket(**config['ticket'])
+        except (OSError, KeyError, json.JSONDecodeError) as e:
+            raise ConfigurationError(e)
