@@ -4,6 +4,6 @@ Architecture: all
 Essential: no
 Section: utils
 Priority: optional
-Depends: python3 (>=3.9), python3-pil (>=4.0), python3-pip (>=9.0)
+Depends: python3 (>=3.9), python3-pil (>=4.0), python3-pip (>=9.0), python3-flask (>=1.1.2), cups (>=2.3.3)
 Maintainer: Jadyn.dev
 Description: GPN Badge Printer
