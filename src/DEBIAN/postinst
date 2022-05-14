@@ -5,7 +5,7 @@ adduser gpnbp --disabled-password --gecos "" --no-create-home
 echo Adding files and permissons
 touch /var/log/gpn-badge-printer.log
 chown root:adm /var/log/gpn-badge-printer.log
-chown root:gpnbp /opt/gpn-badge-printer/core
+chown root:gpnbp -R /opt/gpn-badge-printer/
 
 echo Starting service...
 systemctl daemon-reload
