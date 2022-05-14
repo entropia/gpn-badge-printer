@@ -45,10 +45,16 @@ class WebAPI:
     @app.route('/<path:path>')
     def serve_frontend(path="index.html"):
         try:
-            return flask.send_from_directory(directory=frontend_dir, path=path)
+            if int(flask.__version__[0]) > 1:
+                return flask.send_from_directory(directory=frontend_dir, path=path)
+            else:
+                return flask.send_from_directory(directory=frontend_dir, filename=path)
         except werkzeug.exceptions.NotFound:
             path = path + 'index.html'
-            return flask.send_from_directory(directory=frontend_dir, path=path)
+            if int(flask.__version__[0]) > 1:
+                return flask.send_from_directory(directory=frontend_dir, path=path)
+            else:
+                return flask.send_from_directory(directory=frontend_dir, filename=path)
 
     @staticmethod
     @app.route('/api/badge/info', methods=['GET'])
