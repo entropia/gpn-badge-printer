@@ -1,0 +1,10 @@
+<div class="grid text-center w-screen pt-8">
+  <form (ngSubmit)="sendData()" [formGroup]="form" class="col-6 w-full" style="margin-left: 37.5% !important;">
+    <div *ngFor="let field of fields" class="field w-4">
+      <label for="{{field.name}}"><b>{{field.name.toUpperCase()}}</b></label>
+      <input (keydown.enter)="sendData()" [formControlName]="field.name"
+             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" id="{{field.name}}" placeholder="{{field.description}}"
+             type="text">
+    </div>
+  </form>
+</div>

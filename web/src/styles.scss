@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'Iceland';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Iceland'),
+  local('Iceland-Regular'),
+  url('/assets/font/Iceland-Regular.ttf') format('truetype');
+}
+
+body {
+  font-family: sans, sans-serif;
+  background: #424a60;
+  color: white;
+  overflow: hidden;
+}
+
+h1 {
+  font-family: Iceland, sans-serif;
+}

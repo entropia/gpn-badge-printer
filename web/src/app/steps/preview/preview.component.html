@@ -1,0 +1,9 @@
+<div class="flex flex-row w-screen justify-content-center align-items-center pt-4">
+  <ng-container *ngIf="appState.imagePreview; else noPreview">
+    <p-image [src]="imageValue" height="524px" width="744px"></p-image>
+  </ng-container>
+  <ng-template #noPreview>
+    <p><b>Please enter Participant information on first page</b></p><br/>
+    <p>Press <kbd>CTRL</kbd> + <kbd>R</kbd> to restart</p>
+  </ng-template>
+</div>
