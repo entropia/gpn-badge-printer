@@ -1,9 +1,17 @@
 name: Create Debian Package
 on:
   push:
-    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'web/**'
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'web/**'
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -12,8 +20,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build package
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+            node-version: 16
+
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: web
+
+      - name: Build frontend
+        run: npm run build:prod
+        working-directory: web
+
+      - name: Create debian package
         run: |
+            cp -r web/dist/ticket-scanner/* src/opt/gpn-badge-printer/frontend/
             cp conf.json src/opt/gpn-badge-printer/files/conf.json
             dpkg -b src/ gpnbp.deb
 
