@@ -6,6 +6,10 @@ import {CommonModule} from '@angular/common';
 import {ImageModule} from 'primeng/image';
 import {PrintComponent} from './print/print.component';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {DividerModule} from 'primeng/divider';
+import {InputTextModule} from 'primeng/inputtext';
+import {ToastModule} from 'primeng/toast';
+import {ComponentsModule} from '../components/components.module';
 
 @NgModule({
   declarations: [ParticipantInformationComponent, PreviewComponent, PrintComponent],
@@ -14,6 +18,10 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     ReactiveFormsModule,
     ImageModule,
     ConfirmDialogModule,
+    DividerModule,
+    InputTextModule,
+    ToastModule,
+    ComponentsModule,
   ],
   exports: [ParticipantInformationComponent, PreviewComponent, PrintComponent]
 })

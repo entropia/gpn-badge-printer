@@ -1,9 +1,17 @@
-<div class="flex flex-row w-screen justify-content-center align-items-center pt-4">
+<div class="flex flex-row w-screen justify-content-center align-items-center">
   <ng-container *ngIf="appState.imagePreview; else noPreview">
+    <app-shortcut [direction]="Direction.prev"></app-shortcut>
     <p-image [src]="imageValue" height="524px" width="744px"></p-image>
+    <app-shortcut [direction]="Direction.next"></app-shortcut>
   </ng-container>
   <ng-template #noPreview>
-    <p><b>Please enter Participant information on first page</b></p><br/>
-    <p>Press <kbd>CTRL</kbd> + <kbd>R</kbd> to restart</p>
+    <div class="flex flex-column justify-content-center align-items-center">
+      <p>
+        <b>Please enter Participant information on first page</b>
+      </p>
+      <p>
+        Press <kbd>ESC</kbd> to restart
+      </p>
+    </div>
   </ng-template>
 </div>

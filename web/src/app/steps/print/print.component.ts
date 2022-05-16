@@ -7,7 +7,6 @@ import {Router} from '@angular/router';
 @Component({
   templateUrl: 'print.component.html',
   styleUrls: [],
-  providers: [ConfirmationService]
 })
 export class PrintComponent implements OnInit {
   isSecondPrint: boolean = false;
@@ -40,8 +39,8 @@ export class PrintComponent implements OnInit {
             this.confirmationService.confirm({
               message: 'You need to turn the paper.',
               header: 'Next step',
-              acceptLabel: 'I turned the paper',
-              rejectLabel: 'Stop printing',
+              acceptLabel: 'I turned the paper (Enter)',
+              rejectLabel: 'Stop printing (Esc)',
               icon: 'pi pi-exclamation-triangle',
               accept: () => {
                 this.isSecondPrint = true;
@@ -58,8 +57,8 @@ export class PrintComponent implements OnInit {
           this.confirmationService.confirm({
             message: 'Printing did not work',
             header: 'Print failed',
-            acceptLabel: 'Try again',
-            rejectLabel: 'Go back to start',
+            acceptLabel: 'Try again (Enter)',
+            rejectLabel: 'Go back to start (Esc)',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
               this.startPrint();

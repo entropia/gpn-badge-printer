@@ -12,10 +12,13 @@ import {AppStepsModule} from './steps/app-steps.module';
 import {StepsModule} from 'primeng/steps';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastModule} from 'primeng/toast';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {ShortcutComponent} from './components/shortcut/shortcut.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,12 +29,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    ToastModule,
     ConfirmDialogModule,
     ImageModule,
     AppStepsModule,
     StepsModule,
   ],
-  providers: [],
+  providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

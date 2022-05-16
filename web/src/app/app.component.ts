@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.steps = [
       {
-        label: 'Participant Information',
+        label: 'Participant',
         routerLink: ''
       },
       {

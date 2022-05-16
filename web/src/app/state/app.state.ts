@@ -6,6 +6,7 @@ import {SafeResourceUrl} from '@angular/platform-browser';
 })
 export class AppState {
   private _fields: any[] = [];
+  private _imagePreview: SafeResourceUrl = '';
 
   get fields(): any[] {
     return this._fields;
@@ -15,13 +16,16 @@ export class AppState {
     this._fields = value;
   }
 
-  private _imagePreview: SafeResourceUrl = '';
-
   get imagePreview(): SafeResourceUrl {
     return this._imagePreview;
   }
 
   set imagePreview(value: SafeResourceUrl) {
     this._imagePreview = value;
+  }
+
+  reset() {
+    this._imagePreview = '';
+    this._fields = [];
   }
 }

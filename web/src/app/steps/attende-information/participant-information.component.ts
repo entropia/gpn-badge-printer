@@ -6,6 +6,10 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {FormGroup} from '@angular/forms';
 import {AppState} from '../../state/app.state';
 import {Router} from '@angular/router';
+import {TicketService} from '../../services/ticket.service';
+import {MessageService} from 'primeng/api';
+import {Direction} from '../../components/shortcut/shortcut.component';
+import {tick} from '@angular/core/testing';
 
 @Component({
   templateUrl: 'participant-information.component.html',
@@ -15,20 +19,22 @@ export class ParticipantInformationComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
   fields: any[] = [];
 
+  Direction = Direction;
+
   constructor(
     private infoService: InfoService,
     private previewService: PreviewService,
+    private ticketService: TicketService,
     private formCreationService: FormCreationService,
     private sanitizer: DomSanitizer,
     private state: AppState,
     private router: Router,
+    private messageService: MessageService,
   ) {
   }
 
   ngOnInit() {
-    this.state.imagePreview = '';
-    this.state.fields = [];
-
+    this.state.reset();
     this.getFields();
   }
 
@@ -50,5 +56,23 @@ export class ParticipantInformationComponent implements OnInit, AfterViewInit {
 
       this.router.navigate(['preview']);
     });
+  }
+
+  getTicketInformation(data: any) {
+    const tss = this.ticketService.getParticipantByTicketCode(data.target?.value).subscribe(
+      (ticket) => {
+        tss.unsubscribe();
+        Object.keys(this.form.controls).forEach((ctrl) => {
+          if (ticket.fields.hasOwnProperty(ctrl)) {
+            this.form.controls[ctrl].setValue(ticket.fields[ctrl]);
+          }
+        });
+
+        document.getElementsByTagName('input')[1].focus();
+      },
+      () => {
+        this.messageService.add({severity: 'error', summary: 'Ticket not found'})
+      }
+    );
   }
 }

@@ -1,1 +1,7 @@
 src/**/conf.json
+
+# Web
+node_modules/
+.angular/
+dist/
+web/.idea/

@@ -17,3 +17,9 @@ body {
 h1 {
   font-family: Iceland, sans-serif;
 }
+
+.my-steps.p-steps {
+  .p-steps-item {
+    width: calc(100% / 3);
+  }
+}
