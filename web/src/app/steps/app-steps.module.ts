@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {ParticipantInformationComponent} from './attende-information/participant-information.component';
+import {ParticipantInformationComponent} from './participant-information/participant-information.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {PreviewComponent} from './preview/preview.component';
 import {CommonModule} from '@angular/common';

@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     this.steps = [
       {
         label: 'Participant',
-        routerLink: ''
+        routerLink: 'participant'
       },
       {
         label: 'Preview',

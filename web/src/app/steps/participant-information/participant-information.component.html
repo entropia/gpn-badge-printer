@@ -1,0 +1,28 @@
+<div class="flex flex-column justify-content-center align-items-center">
+  <div class="flex flex-column justify-content-center align-items-center w-full text-center">
+    <label for="ticket-code" class="text-center"><b>TICKET CODE</b></label>
+    <br/>
+    <input pInputText type="text" id="ticket-code" placeholder="Enter Ticket Code" autocomplete="off"
+           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-30rem"
+           (keydown.enter)="getTicketInformation($event)"
+    />
+  </div>
+  <p-divider class="w-screen"></p-divider>
+  <form (ngSubmit)="sendData()" [formGroup]="form" class="flex flex-column justify-content-center align-items-center w-full text-center">
+    <div *ngFor="let field of fields" class="field w-4">
+      <div class="flex flex-column justify-content-center align-items-center w-full text-center pb-2">
+        <label for="{{field.name}}" class="text-center"><b>{{field.name.toUpperCase()}}</b></label>
+        <br/>
+        <input type="text" id="{{field.name}}" placeholder="{{field.description}}" autocomplete="off"
+               class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-30rem"
+               [formControlName]="field.name" (keydown.enter)="sendData()"
+        >
+      </div>
+    </div>
+  </form>
+  <div class="flex flex-column justify-content-center align-items-center w-full text-center">
+    <span>To switch input fields, press <b class="keyboard-key">TAB</b></span>
+    <br/>
+    <span>To show a preview, press <b class="keyboard-key">ENTER</b></span>
+  </div>
+</div>
