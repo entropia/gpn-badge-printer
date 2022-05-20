@@ -7,6 +7,7 @@ import {SafeResourceUrl} from '@angular/platform-browser';
 export class AppState {
   private _fields: any[] = [];
   private _imagePreview: SafeResourceUrl = '';
+  private _formValues: {[p: string]: any} = [];
 
   get fields(): any[] {
     return this._fields;
@@ -24,8 +25,17 @@ export class AppState {
     this._imagePreview = value;
   }
 
+  get formValues(): {[p: string]: any} {
+    return this._formValues;
+  }
+
+  set formValues(values: {[p: string]: any}) {
+    this._formValues = values;
+  }
+
   reset() {
     this._imagePreview = '';
     this._fields = [];
+    this._formValues = [];
   }
 }
