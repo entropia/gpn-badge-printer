@@ -69,6 +69,7 @@ class WebAPI:
                 field_response.name = field
                 field_response.description = server.config.badge.fields[field].description
                 response.fields.append(field_response)
+            response.ticket_code_enabled = server.config.ticket.enabled
             return WebAPI.json_response(response)
         except:
             response = Response.Error()

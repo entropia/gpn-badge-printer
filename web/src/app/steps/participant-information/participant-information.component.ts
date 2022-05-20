@@ -18,6 +18,7 @@ import {tick} from '@angular/core/testing';
 export class ParticipantInformationComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
   fields: any[] = [];
+  ticketCodeEnabled: boolean = false;
 
   Direction = Direction;
 
@@ -43,6 +44,7 @@ export class ParticipantInformationComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.enDisAbleTicketCode();
     this.getFields();
   }
 
@@ -52,6 +54,12 @@ export class ParticipantInformationComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     document.getElementsByTagName('input')[0].focus();
+  }
+
+  enDisAbleTicketCode() {
+      this.infoService.isTicketCodeEnabled().subscribe((isTicketCodeEnabled) => {
+        this.ticketCodeEnabled = isTicketCodeEnabled;
+    });
   }
 
   getFields() {

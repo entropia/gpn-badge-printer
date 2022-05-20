@@ -17,6 +17,7 @@ class Response:
             width: int
             height: int
             fields: list[Field]
+            ticket_code_enabled: bool
 
     class Printer:
         class Status:
