@@ -70,7 +70,8 @@
     "data_source": {
       "name": "csv",
       "config": {
-        "path": "files/tickets.csv"
+        "path": "files/tickets.csv",
+        "case_sensitive": false
       }
     }
   }
