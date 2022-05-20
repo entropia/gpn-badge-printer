@@ -25,8 +25,7 @@ export class ParticipantInformationComponent implements OnInit, AfterViewInit {
   private keyboardEventListeners = (ke: KeyboardEvent) => {
     console.log(ke);
     if (ke.code === 'Escape') {
-      this.state.reset();
-      this.form.reset();
+      this.resetInput();
     }
     if (ke.code === 'Enter') {
       this.sendData();
@@ -81,6 +80,11 @@ export class ParticipantInformationComponent implements OnInit, AfterViewInit {
 
       this.router.navigate(['preview']);
     });
+  }
+
+  resetInput() {
+    this.state.reset();
+    this.form.reset();
   }
 
   getTicketInformation(data: any) {
