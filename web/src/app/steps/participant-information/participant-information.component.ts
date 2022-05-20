@@ -21,6 +21,14 @@ export class ParticipantInformationComponent implements OnInit, AfterViewInit {
 
   Direction = Direction;
 
+  private keyboardEventListeners = (ke: KeyboardEvent) => {
+    console.log(ke);
+    if (ke.code === 'Escape') {
+      this.state.reset();
+      this.form.reset();
+    }
+  }
+
   constructor(
     private infoService: InfoService,
     private previewService: PreviewService,
@@ -31,11 +39,15 @@ export class ParticipantInformationComponent implements OnInit, AfterViewInit {
     private router: Router,
     private messageService: MessageService,
   ) {
+    document.addEventListener('keydown', this.keyboardEventListeners);
   }
 
   ngOnInit() {
-    this.state.reset();
     this.getFields();
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('keydown', this.keyboardEventListeners)
   }
 
   ngAfterViewInit() {
@@ -46,10 +58,12 @@ export class ParticipantInformationComponent implements OnInit, AfterViewInit {
     this.infoService.getFields().subscribe((fields) => {
       this.fields = fields;
       this.form = this.formCreationService.toFormGroup(fields);
+      this.form.setValue(this.state.formValues);
     });
   }
 
   sendData() {
+    this.state.formValues = this.form.value;
     this.previewService.getPreview(this.form.value).subscribe((preview) => {
       this.state.fields = preview.fields;
       this.state.imagePreview = this.sanitizer.bypassSecurityTrustResourceUrl(preview.image);
