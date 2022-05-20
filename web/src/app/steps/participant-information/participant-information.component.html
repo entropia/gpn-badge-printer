@@ -1,14 +1,16 @@
 <div class="flex flex-column justify-content-center align-items-center">
-  <div class="flex flex-column justify-content-center align-items-center w-full text-center">
-    <label for="ticket-code" class="text-center"><b>TICKET CODE (optional)</b><br />
-    (if you want to auto-fill your information)</label>
-    <br/>
-    <input pInputText type="text" id="ticket-code" placeholder="Enter Ticket Code" autocomplete="off"
-           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-30rem"
-           (keydown.enter)="getTicketInformation($event)"
-    />
+  <div [hidden]="!ticketCodeEnabled" id="ticket-code-form">
+    <div class="flex flex-column justify-content-center align-items-center w-full text-center">
+      <label for="ticket-code" class="text-center"><b>TICKET CODE (optional)</b><br/>
+        (if you want to auto-fill your information)</label>
+      <br/>
+      <input pInputText type="text" id="ticket-code" placeholder="Enter Ticket Code" autocomplete="off"
+             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-30rem"
+             (keydown.enter)="getTicketInformation($event)"
+      />
+    </div>
+    <p-divider class="w-screen"></p-divider>
   </div>
-  <p-divider class="w-screen"></p-divider>
   <form (ngSubmit)="sendData()" [formGroup]="form" class="flex flex-column justify-content-center align-items-center w-full text-center">
     <div *ngFor="let field of fields" class="field w-4">
       <div class="flex flex-column justify-content-center align-items-center w-full text-center pb-2">

@@ -18,4 +18,11 @@ export class InfoService {
         map((res: any) => res['fields'])
       );
   }
+
+  isTicketCodeEnabled(): Observable<boolean> {
+    return this.http.get(`${environment.apiEndpoint}/badge/info`)
+      .pipe(
+        map((res: any) => res['ticket_code_enabled'])
+      );
+  }
 }

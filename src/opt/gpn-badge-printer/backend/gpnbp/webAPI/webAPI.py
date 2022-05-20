@@ -70,6 +70,7 @@ class WebAPI:
                 field_response.description = server.config.badge.fields[field].description
                 field_response.max_length = server.config.badge.fields[field].max_length
                 response.fields.append(field_response)
+            response.ticket_code_enabled = server.config.ticket.enabled
             return WebAPI.json_response(response)
         except:
             response = Response.Error()
