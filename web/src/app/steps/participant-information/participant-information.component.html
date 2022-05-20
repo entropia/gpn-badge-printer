@@ -6,7 +6,7 @@
       <br/>
       <input pInputText type="text" id="ticket-code" placeholder="Enter Ticket Code" autocomplete="off"
              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-30rem"
-             (keydown.enter)="getTicketInformation($event)"
+             (keydown.enter)="$event.stopPropagation();getTicketInformation($event)"
       />
     </div>
     <p-divider class="w-screen"></p-divider>

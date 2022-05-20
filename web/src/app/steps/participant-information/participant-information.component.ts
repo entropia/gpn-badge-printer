@@ -28,6 +28,9 @@ export class ParticipantInformationComponent implements OnInit, AfterViewInit {
       this.state.reset();
       this.form.reset();
     }
+    if (ke.code === 'Enter') {
+      this.sendData();
+    }
   }
 
   constructor(
