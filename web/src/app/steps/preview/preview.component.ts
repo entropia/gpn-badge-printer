@@ -15,11 +15,11 @@ export class PreviewComponent implements OnInit, OnDestroy {
   private keyboardEventListeners = (ke: KeyboardEvent) => {
     console.log(ke);
     if (ke.code === 'Enter') {
-      this.router.navigate(['print']);
+      this.startPrint();
     }
 
     if (ke.code === 'Escape') {
-      this.router.navigate(['']);
+      this.abortPrint();
     }
   }
 
@@ -27,6 +27,14 @@ export class PreviewComponent implements OnInit, OnDestroy {
     this.appState = state;
 
     document.addEventListener('keydown', this.keyboardEventListeners);
+  }
+
+  startPrint() {
+    this.router.navigate(['print']);
+  }
+
+  abortPrint() {
+    this.router.navigate(['']);
   }
 
   ngOnInit() {
