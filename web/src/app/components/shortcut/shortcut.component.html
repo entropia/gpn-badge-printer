@@ -1,12 +1,12 @@
 <div>
     <ng-container *ngIf="direction === Direction.prev; else next">
         <div class="absolute top-50 left-0 pl-8 text-lg">
-            Go Back <kbd class="keyboard-key">ESC</kbd>
+            Go Back <kbd>Esc</kbd>
         </div>
     </ng-container>
     <ng-template #next>
         <div class="absolute top-50 right-0 pr-8 text-lg">
-            Print <kbd class="keyboard-key">Enter</kbd>
+            Print <kbd>Enter</kbd>
         </div>
     </ng-template>
 </div>
