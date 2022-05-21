@@ -24,10 +24,11 @@ h1 {
   }
 }
 
-.keyboard-key {
+kbd {
   background-color: gray;
   border-radius: 15%;
   padding: 3px;
+  font-weight: bold;
 }
 
 .clickable-key {
