@@ -30,6 +30,7 @@ class BadgeGenerator:
             image.paste(self.badge_background)
 
         for (key, value) in strings.items():
+            value = value or ''
             self.fields[key].draw(draw, value, show_margins)
         return image
 
