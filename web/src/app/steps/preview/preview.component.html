@@ -7,10 +7,10 @@
   <ng-template #noPreview>
     <div class="flex flex-column justify-content-center align-items-center">
       <p>
-        <b>Please enter Participant information on first page</b>
+        <b>Please enter participant information on first page</b>
       </p>
       <p>
-        Press <kbd>Esc</kbd> to restart
+        Press <kbd class="clickable-key" (click)="abortPrint()">Esc</kbd> to restart
       </p>
     </div>
   </ng-template>
