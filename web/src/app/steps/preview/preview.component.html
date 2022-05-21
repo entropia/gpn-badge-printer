@@ -1,8 +1,8 @@
 <div class="flex flex-row w-screen justify-content-center align-items-center">
   <ng-container *ngIf="appState.imagePreview; else noPreview">
-    <app-shortcut [direction]="Direction.prev"></app-shortcut>
+    <app-shortcut [direction]="Direction.prev" [action]="abortPrint"></app-shortcut>
     <p-image [src]="imageValue" height="524px" width="744px"></p-image>
-    <app-shortcut [direction]="Direction.next"></app-shortcut>
+    <app-shortcut [direction]="Direction.next" [action]="startPrint"></app-shortcut>
   </ng-container>
   <ng-template #noPreview>
     <div class="flex flex-column justify-content-center align-items-center">
