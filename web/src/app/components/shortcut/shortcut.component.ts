@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-shortcut',
@@ -7,7 +8,11 @@ import {Component, Input} from '@angular/core';
 })
 export class ShortcutComponent {
   @Input() direction!: Direction;
+  @Input() action!: () => void;
   Direction = Direction;
+
+  constructor(private router: Router) {
+  }
 }
 
 export enum Direction {

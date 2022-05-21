@@ -1,12 +1,12 @@
 <div>
     <ng-container *ngIf="direction === Direction.prev; else next">
-        <div class="absolute top-50 left-0 pl-8 text-lg">
-            Go Back <kbd>Esc</kbd>
+        <div class="absolute top-50 left-0 pl-8 text-lg label">
+            Go Back <kbd [class.clickable-key]="action !== undefined" (click)="action()">Esc</kbd>
         </div>
     </ng-container>
     <ng-template #next>
-        <div class="absolute top-50 right-0 pr-8 text-lg">
-            Print <kbd>Enter</kbd>
+        <div class="absolute top-50 right-0 pr-8 text-lg label">
+            Print <kbd [class.clickable-key]="action !== undefined" (click)="action()">Enter</kbd>
         </div>
     </ng-template>
 </div>
