@@ -237,6 +237,10 @@ definitions:
           properties:
             name:
               type: 'string'
+            max_length:
+              type: 'integer'
+            description:
+              type: 'string'
 
   printJob:
     type: "object"

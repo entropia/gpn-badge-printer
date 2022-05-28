@@ -13,6 +13,7 @@ class Response:
                 name: str
                 value: str
                 description: str
+                max_length: int
 
             width: int
             height: int

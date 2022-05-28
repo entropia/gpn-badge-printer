@@ -49,6 +49,7 @@ class GPNBPConfig(ConfigOption):
             margins: Margins
             debug: Debug
             description: str = ''
+            max_length: int = 0
 
             def __init__(self, **kwargs):
                 self.text = self.Text(**kwargs['text'])

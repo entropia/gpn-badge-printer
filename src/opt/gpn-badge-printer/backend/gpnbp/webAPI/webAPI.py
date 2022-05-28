@@ -68,6 +68,7 @@ class WebAPI:
                 field_response = Response.Badge.DefinitionResponse.Field()
                 field_response.name = field
                 field_response.description = server.config.badge.fields[field].description
+                field_response.max_length = server.config.badge.fields[field].max_length
                 response.fields.append(field_response)
             return WebAPI.json_response(response)
         except:
@@ -195,7 +196,7 @@ class WebAPI:
     @staticmethod
     @app.route('/api/printer/job/<int:jobid>', methods=['GET'])
     def printer_job_status(jobid: int):
-        try:
+        #try:
             try:
                 response = Response.Printer.JobStatus()
                 job_status = server.printer.getJobDetails(jobid)
@@ -206,19 +207,19 @@ class WebAPI:
                 response.time_at_processing = job_status['time-at-processing']
                 response.job_state = job_status['job-state']
                 response.job_state_reason = job_status['job-state-reasons']
-                response.job_printer_state_message = job_status['job-printer-state-message']
-                response.job_printer_state_reasons = job_status['job-printer-state-reasons']
+                response.job_printer_state_message = job_status.get('job-printer-state-message', '')
+                response.job_printer_state_reasons = job_status.get('job-printer-state-reasons', [])
                 return WebAPI.json_response(response)
             except cups.IPPError as e:
                 response = Response.Error()
                 response.code = 530
                 response.message = f'Cups Error: {e}'
                 return WebAPI.json_error_response(response)
-        except:
-            response = Response.Error()
-            response.code = 500
-            response.message = f'Server Error'
-            return WebAPI.json_error_response(response)
+        #except:
+        #    response = Response.Error()
+        #    response.code = 500
+        #    response.message = f'Server Error'
+       #     return WebAPI.json_error_response(response)
 
     @staticmethod
     @app.route('/api/ticket/<ticket_code>', methods=['GET'])

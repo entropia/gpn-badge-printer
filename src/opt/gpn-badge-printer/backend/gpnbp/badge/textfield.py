@@ -1,4 +1,6 @@
-from PIL import ImageDraw, ImageFont
+from typing import Union
+
+from PIL import ImageDraw, Image
 import logging
 
 from gpnbp.badge.badge import BadgeGenerator
@@ -29,6 +31,17 @@ class TextField:
         self.text_anchor = config.text.anchor
 
         logging.debug(f'Text postion is ({self.text_anchor}) x: {self.text_position[0]}, y: {self.text_position[1]}')
+        config.max_length = self.max_length(self.font_cache.min_size)
+
+    def max_length(self, font_size: int, char: Union[str, chr] = ".") -> int:
+        img = Image.new("RGB", (0, 0))
+        draw = ImageDraw.Draw(img)
+        string = str(char)
+        text_width, text_height = draw.textsize(string, font=self.font_cache.cache[font_size])
+        while text_width < self.parent.size.width - self.margins.left - self.margins.right:
+            string = string + str(char)
+            text_width, text_height = draw.textsize(string, font=self.font_cache.cache[font_size])
+        return len(string)
 
     def draw(self, draw: ImageDraw.Draw, string: str, show_margins: bool):
         if show_margins:
